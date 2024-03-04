@@ -1,4 +1,4 @@
-# Solar Cross Sell
+# Home Solutions
 
 **Home Solutions** is an app for sales reps to introduce to their clients to see if they would be interested in any additional services.
 
