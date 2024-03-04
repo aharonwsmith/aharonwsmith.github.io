@@ -1,4 +1,5 @@
-## Home Solutions
+# project-groft
+## Solar Cross Sell
 
 **Home Solutions** is an app for sales reps to introduce to their clients to see if they would be interested in any additional services.
 
@@ -26,3 +27,4 @@ The app will also have a place where the sales rep can see the following items:
 2) How many have sold
 3) How many are about to be installed
 4) How many are installed
+
