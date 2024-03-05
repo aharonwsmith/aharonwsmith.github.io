@@ -36,7 +36,7 @@
 
     function initClient() {
       gapi.client.init({
-        clientId: 'YOUR_CLIENT_ID',
+        clientId: '704701761049-61hisdtrnoe5m3r7ba6lo6n0r6ut3ad7.apps.googleusercontent.com',
         scope: 'https://www.googleapis.com/auth/spreadsheets',
         discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
       }).then(function () {
@@ -50,13 +50,15 @@
     function updateSigninStatus(isSignedIn) {
       if (isSignedIn) {
         var formData = {
-          name: document.getElementById('name').value,
-          email: document.getElementById('email').value,
-          // Add more fields as needed
+          firstName: document.getElementById('firstName').value,
+          lastName: document.getElementById('lastName').value,
+          phoneNumber: document.getElementById('phoneNumber').value,
+          address: document.getElementById('address').value,
+          email: document.getElementById('email').value
         };
 
         gapi.client.sheets.spreadsheets.values.append({
-          spreadsheetId: 'YOUR_SPREADSHEET_ID',
+          spreadsheetId: '1rVKEJVmU1WkhWPARRlSom3vcVdNqhcloEZ3U54hBJTc',
           range: 'Sheet1!A1',
           valueInputOption: 'USER_ENTERED',
           resource: {
