@@ -7,7 +7,7 @@
 <body>
   <h1>Home Solutions Entry Form</h1>
   <p>Enter your information:</p>
-  <form id="infoForm">
+  <form id="infoForm" action="http://localhost:3000/submit" method="POST">
     <label for="firstName">First Name:</label><br>
     <input type="text" id="firstName" name="firstName" required><br><br>
 
@@ -24,9 +24,6 @@
     <input type="email" id="email" name="email" required><br><br>
 
     <input type="submit" value="Submit" id="submitBtn">
-
-  
-    <input type="button" value="Save to Google Sheets" onclick="handleClientLoad()">
   </form>
 
   <script>
@@ -57,21 +54,21 @@
           email: document.getElementById('email').value
         };
 
-        gapi.client.sheets.spreadsheets.values.append({
-          spreadsheetId: '1rVKEJVmU1WkhWPARRlSom3vcVdNqhcloEZ3U54hBJTc',
-          range: 'Sheet1!A1',
-          valueInputOption: 'USER_ENTERED',
-          resource: {
-            values: [[formData.name, formData.email]],
+        // Send the form data to the server
+        fetch('http://localhost:3000/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
+          body: JSON.stringify(formData),
         }).then(function(response) {
-          console.log('Data appended to spreadsheet');
+          console.log('Data sent to server');
           // Optionally, you can display a confirmation message to the user
-          alert('Data saved to Google Sheets');
+          alert('Data sent to server');
         }).catch(function(error) {
-          console.error('Error appending data: ' + error);
+          console.error('Error sending data: ' + error);
           // Optionally, you can display an error message to the user
-          alert('Error saving data');
+          alert('Error sending data');
         });
       } else {
         // User is not signed in, show the sign-in button.
