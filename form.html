@@ -7,7 +7,7 @@
 <body>
   <h1>Home Solutions Entry Form</h1>
   <p>Enter your information:</p>
-  <form id="infoForm" action="http://localhost:3000/submit" method="POST">
+  <form id="infoForm">
     <label for="firstName">First Name:</label><br>
     <input type="text" id="firstName" name="firstName" required><br><br>
 
@@ -24,6 +24,8 @@
     <input type="email" id="email" name="email" required><br><br>
 
     <input type="submit" value="Submit" id="submitBtn">
+
+    <input type="button" value="Save to Google Sheets" onclick="handleClientLoad()">
   </form>
 
   <script>
@@ -33,7 +35,7 @@
 
     function initClient() {
       gapi.client.init({
-        clientId: '704701761049-61hisdtrnoe5m3r7ba6lo6n0r6ut3ad7.apps.googleusercontent.com',
+        clientId: '704701761049-61hisdtrnoe5m3r7ba6lo6n0r6ut3ad7.apps.googleusercontent.com', // Replace with your client ID
         scope: 'https://www.googleapis.com/auth/spreadsheets',
         discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
       }).then(function () {
@@ -54,21 +56,21 @@
           email: document.getElementById('email').value
         };
 
-        // Send the form data to the server
-        fetch('http://localhost:3000/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        gapi.client.sheets.spreadsheets.values.append({
+          spreadsheetId: '1rVKEJVmU1WkhWPARRlSom3vcVdNqhcloEZ3U54hBJTc', // Replace with your spreadsheet ID
+          range: 'Sheet1!A1',
+          valueInputOption: 'USER_ENTERED',
+          resource: {
+            values: [[formData.firstName, formData.lastName, formData.phoneNumber, formData.address, formData.email]],
           },
-          body: JSON.stringify(formData),
         }).then(function(response) {
-          console.log('Data sent to server');
+          console.log('Data appended to spreadsheet');
           // Optionally, you can display a confirmation message to the user
-          alert('Data sent to server');
+          alert('Data saved to Google Sheets');
         }).catch(function(error) {
-          console.error('Error sending data: ' + error);
+          console.error('Error appending data: ' + error);
           // Optionally, you can display an error message to the user
-          alert('Error sending data');
+          alert('Error saving data');
         });
       } else {
         // User is not signed in, show the sign-in button.
